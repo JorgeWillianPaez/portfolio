@@ -29,7 +29,7 @@ export default function Home() {
           <Subtitle>Full Stack Developer</Subtitle>
           <p>Building innovative solutions with modern technologies</p>
         </Hero>
-        <About>
+        <About id="about">
           <h2>Sobre mim</h2>
           <AboutContainer>
             <ProfileImage>
@@ -54,7 +54,7 @@ export default function Home() {
           </AboutContainer>
         </About>
 
-        <Skills>
+        <Skills id="skills">
           <h2>Habilidades Técnicas</h2>
           <SkillsGrid>
             <SkillCategory>
@@ -133,8 +133,8 @@ export default function Home() {
           </div>
         </section> */}
 
-        <Contact>
-          <h2>Get in Touch</h2>
+        <Contact id="contact">
+          <h2>Entre em contato</h2>
           <ContactLinks>
             <a href="https://github.com/JorgeWillianPaez" target="_blank">
               GitHub
