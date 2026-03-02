@@ -1,0 +1,246 @@
+.section {
+  background: linear-gradient(
+    180deg,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 100%
+  );
+  position: relative;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 40% 50% at 80% 30%,
+    rgba(0, 212, 255, 0.05) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 4rem;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.timelineLine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.25rem;
+}
+
+.timelineDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px currentColor;
+}
+
+.timelineVertical {
+  flex: 1;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--border-accent), transparent);
+  margin-top: 0.4rem;
+  min-height: 20px;
+}
+
+/* Education card */
+.eduCard {
+  padding: 2rem;
+}
+
+.eduHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.eduIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.degree {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.institution {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.eduMeta {
+  margin-left: auto;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.period {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.status {
+  font-size: 0.775rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.highlightTag {
+  font-size: 0.775rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid;
+  border-radius: var(--radius-full);
+  font-weight: 500;
+}
+
+/* Certifications */
+.certsSection {
+  margin-top: 1rem;
+}
+
+.certsTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.certsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.certCard {
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.certCard::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--cert-color, var(--accent-cyan));
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.certIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.certName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.certIssuer {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.certPeriod {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--cert-color, var(--accent-cyan));
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .certsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .timelineItem {
+    grid-template-columns: 30px 1fr;
+    gap: 1rem;
+  }
+
+  .eduHeader {
+    flex-direction: column;
+  }
+
+  .eduMeta {
+    text-align: left;
+  }
+
+  .certsGrid {
+    grid-template-columns: 1fr;
+  }
+}

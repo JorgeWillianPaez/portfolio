@@ -1,0 +1,79 @@
+/* Hide default cursor globally */
+:global(body) {
+  cursor: none !important;
+}
+
+:global(a),
+:global(button),
+:global([role="button"]),
+:global(input),
+:global(textarea),
+:global(select),
+:global(label) {
+  cursor: none !important;
+}
+
+/* Dot — snaps directly to pointer */
+.dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  pointer-events: none;
+  z-index: 99999;
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
+  box-shadow: 0 0 8px var(--accent-cyan);
+  will-change: transform;
+}
+
+/* Ring — follows with easing via JS */
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 212, 255, 0.55);
+  pointer-events: none;
+  z-index: 99998;
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    border-color 0.25s ease,
+    opacity 0.2s ease;
+  will-change: transform;
+}
+
+/* Hover over interactive elements */
+.dot.active {
+  width: 12px;
+  height: 12px;
+  background: var(--accent-purple);
+  box-shadow: 0 0 14px var(--accent-purple);
+}
+
+.ring.active {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(139, 92, 246, 0.6);
+}
+
+/* Hide on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .dot,
+  .ring {
+    display: none;
+  }
+
+  :global(body) {
+    cursor: auto !important;
+  }
+}
