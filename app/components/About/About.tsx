@@ -2,15 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import styles from "./About.module.css";
-
-const stats = [
-  { value: "3+", label: "Anos de experiência" },
-  { value: "27+", label: "Repositórios" },
-  { value: "611", label: "Contribuições (último ano)" },
-  { value: "10+", label: "Tecnologias" },
-];
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function About() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -35,91 +30,41 @@ export default function About() {
     <section id="sobre" className={`section ${styles.about}`} ref={sectionRef}>
       <div className={`container ${styles.inner}`}>
         <div className={styles.textSide}>
-          <span className="section-tag reveal">Sobre mim</span>
+          <span className="section-tag reveal">{t.about.tag}</span>
           <h2 className={`section-title reveal`}>
-            Construindo o futuro,{" "}
-            <span className="highlight">uma linha de código por vez</span>
+            {t.about.titleStart}{" "}
+            <span className="highlight">{t.about.titleHighlight}</span>
           </h2>
-          <p className={`${styles.bio} reveal`}>
-            Sou <strong>Jorge Willian Paez Nagakura</strong>, desenvolvedor Full
-            Stack apaixonado por tecnologia e pela criação de soluções digitais
-            que fazem a diferença. Com experiência em todo o ciclo de
-            desenvolvimento — do backend ao frontend — me dedico a entregar
-            aplicações robustas, performáticas e com excelente experiência do
-            usuário.
-          </p>
-          <p className={`${styles.bio} reveal`}>
-            Trabalho principalmente com o ecossistema{" "}
-            <strong>JavaScript/TypeScript</strong>, utilizando{" "}
-            <strong>React</strong>, <strong>Next.js</strong> e{" "}
-            <strong>Node.js</strong>
-            como minhas ferramentas principais. Também tenho experiência com{" "}
-            <strong>Python/Django</strong>,<strong> C#/.NET</strong> e
-            desenvolvimento mobile com <strong>Kotlin</strong>.
-          </p>
-          <p className={`${styles.bio} reveal`}>
-            Quando não estou codando, gosto de explorar novas tecnologias,
-            contribuir com projetos open source e me manter sempre atualizado
-            com as últimas tendências do mercado de tecnologia.
-          </p>
+          <p
+            className={`${styles.bio} reveal`}
+            dangerouslySetInnerHTML={{ __html: t.about.bio1 }}
+          />
+          <p
+            className={`${styles.bio} reveal`}
+            dangerouslySetInnerHTML={{ __html: t.about.bio2 }}
+          />
+          <p
+            className={`${styles.bio} reveal`}
+            dangerouslySetInnerHTML={{ __html: t.about.bio3 }}
+          />
 
           <div className={`${styles.highlights} reveal`}>
-            <div className={styles.highlightItem}>
-              <span className={styles.checkIcon}>
-                <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-                  <path
-                    d="M3 8l3.5 3.5L13 5"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-              Power Platform (Apps, Automate, BI, Pages)
-            </div>
-            <div className={styles.highlightItem}>
-              <span className={styles.checkIcon}>
-                <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-                  <path
-                    d="M3 8l3.5 3.5L13 5"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-              Dynamics 365 CRM &amp; Dataverse
-            </div>
-            <div className={styles.highlightItem}>
-              <span className={styles.checkIcon}>
-                <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-                  <path
-                    d="M3 8l3.5 3.5L13 5"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-              Desenvolvimento Web Full Stack
-            </div>
-            <div className={styles.highlightItem}>
-              <span className={styles.checkIcon}>
-                <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-                  <path
-                    d="M3 8l3.5 3.5L13 5"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-              Microsoft 365, Azure &amp; SharePoint
-            </div>
+            {t.about.highlights.map((highlight) => (
+              <div key={highlight} className={styles.highlightItem}>
+                <span className={styles.checkIcon}>
+                  <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
+                    <path
+                      d="M3 8l3.5 3.5L13 5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+                {highlight}
+              </div>
+            ))}
           </div>
 
           <div className={`${styles.actions} reveal`}>
@@ -129,7 +74,7 @@ export default function About() {
               rel="noopener noreferrer"
               className="btn-primary"
             >
-              <span>Ver LinkedIn</span>
+              <span>{t.about.viewLinkedIn}</span>
             </a>
             <a
               href="https://github.com/JorgeWillianPaez"
@@ -137,13 +82,13 @@ export default function About() {
               rel="noopener noreferrer"
               className="btn-outline"
             >
-              Ver GitHub
+              {t.about.viewGitHub}
             </a>
           </div>
         </div>
 
         <div className={styles.statsSide}>
-          {stats.map((stat, i) => (
+          {t.about.stats.map((stat, i) => (
             <div
               key={stat.label}
               className={`glass-card ${styles.statCard} reveal`}
@@ -157,8 +102,8 @@ export default function About() {
           <div className={`glass-card ${styles.statusCard} reveal`}>
             <div className={styles.statusDot} />
             <div>
-              <p className={styles.statusTitle}>Disponível para trabalhar</p>
-              <p className={styles.statusSub}>Aberto a novas oportunidades</p>
+              <p className={styles.statusTitle}>{t.about.statusTitle}</p>
+              <p className={styles.statusSub}>{t.about.statusSub}</p>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import styles from "./Education.module.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 function EducationIcon({ id, color }: { id: string; color: string }) {
   const props = {
@@ -69,58 +70,13 @@ function EducationIcon({ id, color }: { id: string; color: string }) {
   }
 }
 
-const education = [
-  {
-    degree: "Análise e Desenvolvimento de Sistemas",
-    institution: "UTFPR — Universidade Tecnológica Federal do Paraná",
-    period: "2022 — 2025",
-    status: "Concluído",
-    description:
-      "Formação focada no desenvolvimento de software, análise de sistemas, banco de dados, engenharia de requisitos e metodologias ágeis. Projetos práticos com desenvolvimento web, mobile e aplicações enterprise.",
-    highlights: [
-      "Desenvolvimento Web",
-      "Banco de Dados",
-      "Engenharia de Software",
-      "Metodologias Ágeis",
-    ],
-    color: "#00d4ff",
-    iconId: "graduation",
-  },
-];
-
-const certifications = [
-  {
-    name: "Desenvolvimento Full Stack",
-    issuer: "Bootcamp / Treinamento",
-    period: "2023",
-    color: "#8b5cf6",
-    iconId: "certificate",
-  },
-  {
-    name: "React & Next.js",
-    issuer: "Formação Prática",
-    period: "2024",
-    color: "#00d4ff",
-    iconId: "react",
-  },
-  {
-    name: "Python para Data Science",
-    issuer: "Treinamento",
-    period: "2025",
-    color: "#10b981",
-    iconId: "python",
-  },
-  {
-    name: "DevOps Fundamentals",
-    issuer: "Treinamento",
-    period: "2025",
-    color: "#f59e0b",
-    iconId: "devops",
-  },
-];
+const certColors = ["#8b5cf6", "#00d4ff", "#10b981", "#f59e0b"];
+const certIcons = ["certificate", "react", "python", "devops"];
+const certPeriods = ["2023", "2024", "2025", "2025"];
 
 export default function Education() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -148,95 +104,87 @@ export default function Education() {
     >
       <div className="container">
         <div className={`${styles.header} reveal`}>
-          <span className="section-tag">Formação</span>
+          <span className="section-tag">{t.education.tag}</span>
           <h2 className="section-title">
-            Minha <span className="highlight">Trajetória Acadêmica</span>
+            {t.education.titleStart}{" "}
+            <span className="highlight">{t.education.titleHighlight}</span>
           </h2>
-          <p className={styles.subtitle}>
-            Formação sólida em tecnologia combinada com aprendizado contínuo
-          </p>
+          <p className={styles.subtitle}>{t.education.subtitle}</p>
         </div>
 
         {/* Education Timeline */}
         <div className={styles.timeline}>
-          {education.map((edu, i) => (
-            <div
-              key={edu.degree}
-              className={`${styles.timelineItem} reveal`}
-              style={{ transitionDelay: `${i * 150}ms` }}
-            >
-              <div className={styles.timelineLine}>
-                <div
-                  className={styles.timelineDot}
-                  style={{ background: edu.color }}
-                />
-                <div className={styles.timelineVertical} />
-              </div>
+          <div className={`${styles.timelineItem} reveal`}>
+            <div className={styles.timelineLine}>
               <div
-                className={`glass-card ${styles.eduCard}`}
-                style={{ "--edu-color": edu.color } as React.CSSProperties}
-              >
-                <div className={styles.eduHeader}>
-                  <span className={styles.eduIcon}>
-                    <EducationIcon id={edu.iconId} color={edu.color} />
+                className={styles.timelineDot}
+                style={{ background: "#00d4ff" }}
+              />
+              <div className={styles.timelineVertical} />
+            </div>
+            <div
+              className={`glass-card ${styles.eduCard}`}
+              style={{ "--edu-color": "#00d4ff" } as React.CSSProperties}
+            >
+              <div className={styles.eduHeader}>
+                <span className={styles.eduIcon}>
+                  <EducationIcon id="graduation" color="#00d4ff" />
+                </span>
+                <div>
+                  <h3 className={styles.degree}>{t.education.degree}</h3>
+                  <p className={styles.institution}>
+                    {t.education.institution}
+                  </p>
+                </div>
+                <div className={styles.eduMeta}>
+                  <span className={styles.period}>{t.education.period}</span>
+                  <span className={styles.status} style={{ color: "#00d4ff" }}>
+                    {t.education.status}
                   </span>
-                  <div>
-                    <h3 className={styles.degree}>{edu.degree}</h3>
-                    <p className={styles.institution}>{edu.institution}</p>
-                  </div>
-                  <div className={styles.eduMeta}>
-                    <span className={styles.period}>{edu.period}</span>
-                    <span
-                      className={styles.status}
-                      style={{ color: edu.color }}
-                    >
-                      {edu.status}
-                    </span>
-                  </div>
                 </div>
-                <p className={styles.description}>{edu.description}</p>
-                <div className={styles.highlights}>
-                  {edu.highlights.map((h) => (
-                    <span
-                      key={h}
-                      className={styles.highlightTag}
-                      style={{
-                        borderColor: `${edu.color}40`,
-                        color: edu.color,
-                      }}
-                    >
-                      {h}
-                    </span>
-                  ))}
-                </div>
+              </div>
+              <p className={styles.description}>{t.education.description}</p>
+              <div className={styles.highlights}>
+                {t.education.highlights.map((h) => (
+                  <span
+                    key={h}
+                    className={styles.highlightTag}
+                    style={{
+                      borderColor: "rgba(0, 212, 255, 0.25)",
+                      color: "#00d4ff",
+                    }}
+                  >
+                    {h}
+                  </span>
+                ))}
               </div>
             </div>
-          ))}
+          </div>
         </div>
 
         {/* Certifications */}
         <div className={`${styles.certsSection} reveal`}>
-          <h3 className={styles.certsTitle}>Cursos &amp; Certificações</h3>
+          <h3 className={styles.certsTitle}>{t.education.certsTitle}</h3>
           <div className={styles.certsGrid}>
-            {certifications.map((cert, i) => (
+            {t.education.certs.map((cert, i) => (
               <div
                 key={cert.name}
                 className={`glass-card ${styles.certCard} reveal`}
                 style={
                   {
                     transitionDelay: `${i * 80}ms`,
-                    "--cert-color": cert.color,
+                    "--cert-color": certColors[i],
                   } as React.CSSProperties
                 }
               >
                 <span className={styles.certIcon}>
-                  <EducationIcon id={cert.iconId} color={cert.color} />
+                  <EducationIcon id={certIcons[i]} color={certColors[i]} />
                 </span>
                 <div>
                   <p className={styles.certName}>{cert.name}</p>
                   <p className={styles.certIssuer}>{cert.issuer}</p>
                 </div>
-                <span className={styles.certPeriod}>{cert.period}</span>
+                <span className={styles.certPeriod}>{certPeriods[i]}</span>
               </div>
             ))}
           </div>

@@ -1,7 +1,11 @@
+"use client";
+
 import styles from "./Footer.module.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className={styles.footer}>
@@ -14,9 +18,7 @@ export default function Footer() {
             Nagakura
             <span className={styles.logoAngle}>&gt;</span>
           </a>
-          <p className={styles.tagline}>
-            Construindo experiências digitais que importam.
-          </p>
+          <p className={styles.tagline}>{t.footer.tagline}</p>
           <div className={styles.socials}>
             <a
               href="https://github.com/JorgeWillianPaez"
@@ -57,8 +59,7 @@ export default function Footer() {
 
         <div className={styles.bottom}>
           <p className={styles.copy}>
-            &copy; {year} Jorge Willian Paez Nagakura. Todos os direitos
-            reservados.
+            &copy; {year} Jorge Willian Paez Nagakura. {t.footer.copyright}
           </p>
         </div>
       </div>

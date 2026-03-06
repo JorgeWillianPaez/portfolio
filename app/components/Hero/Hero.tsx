@@ -3,16 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./Hero.module.css";
-
-const roles = [
-  "Especialista Power Platform",
-  "Desenvolvedor Dynamics 365 CRM",
-  "Desenvolvedor Full Stack",
-  "Desenvolvedor React & Next.js",
-  "Engenheiro de Software",
-];
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Hero() {
+  const { t } = useLanguage();
+  const roles = t.hero.roles;
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
@@ -90,11 +85,11 @@ export default function Hero() {
         <div className={styles.content}>
           <div className={styles.badge}>
             <span className={styles.badgeDot} />
-            Disponível para oportunidades
+            {t.hero.available}
           </div>
 
           <h1 className={styles.name}>
-            Olá, sou <span className="highlight">Jorge Nagakura</span>
+            {t.hero.greeting} <span className="highlight">Jorge Nagakura</span>
           </h1>
 
           <h2 className={styles.role}>
@@ -102,19 +97,17 @@ export default function Hero() {
             <span className={styles.cursor} />
           </h2>
 
-          <p className={styles.description}>
-            Especializado em <strong>Power Platform</strong> e{" "}
-            <strong>Dynamics 365 CRM</strong>, com sólida base em
-            desenvolvimento web full stack com React, Next.js e Node.js.
-            Transformo processos corporativos em soluções digitais eficientes.
-          </p>
+          <p
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: t.hero.description }}
+          />
 
           <div className={styles.actions}>
             <a href="#projetos" className="btn-primary">
-              <span>Ver Projetos</span>
+              <span>{t.hero.viewProjects}</span>
             </a>
             <a href="#contato" className="btn-outline">
-              Entre em contato
+              {t.hero.getInTouch}
             </a>
           </div>
 
@@ -155,7 +148,7 @@ export default function Hero() {
 
           <div className={styles.scroll}>
             <div className={styles.scrollLine} />
-            <span>scroll</span>
+            <span>{t.hero.scroll}</span>
           </div>
         </div>
       </div>

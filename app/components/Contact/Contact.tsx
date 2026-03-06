@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import styles from "./Contact.module.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 const contactLinks = [
   {
@@ -56,6 +57,7 @@ export default function Contact() {
   });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -99,24 +101,18 @@ export default function Contact() {
     >
       <div className="container">
         <div className={`${styles.header} reveal`}>
-          <span className="section-tag">Contato</span>
+          <span className="section-tag">{t.contact.tag}</span>
           <h2 className="section-title">
-            Vamos <span className="highlight">Trabalhar Juntos?</span>
+            {t.contact.titleStart}{" "}
+            <span className="highlight">{t.contact.titleHighlight}</span>
           </h2>
-          <p className={styles.subtitle}>
-            Estou disponível para projetos, oportunidades e conversas sobre
-            tecnologia. Entre em contato!
-          </p>
+          <p className={styles.subtitle}>{t.contact.subtitle}</p>
         </div>
 
         <div className={styles.layout}>
           {/* Left: contact info */}
           <div className={styles.infoSide}>
-            <p className={`${styles.infoText} reveal`}>
-              Se você tem um projeto em mente, uma oportunidade de emprego ou
-              simplesmente quer bater um papo sobre tecnologia, não hesite em me
-              contatar. Respondo sempre o mais rápido possível!
-            </p>
+            <p className={`${styles.infoText} reveal`}>{t.contact.infoText}</p>
 
             <div className={styles.links}>
               {contactLinks.map((link, i) => (
@@ -161,19 +157,15 @@ export default function Contact() {
             <div className={`${styles.availability} reveal`}>
               <div className={styles.availDot} />
               <div>
-                <p className={styles.availTitle}>
-                  Disponível para novas oportunidades
-                </p>
-                <p className={styles.availSub}>
-                  Full-time · Freelance · Remoto
-                </p>
+                <p className={styles.availTitle}>{t.contact.availTitle}</p>
+                <p className={styles.availSub}>{t.contact.availSub}</p>
               </div>
             </div>
           </div>
 
           {/* Right: form */}
           <div className={`glass-card ${styles.formCard} reveal`}>
-            <h3 className={styles.formTitle}>Envie uma mensagem</h3>
+            <h3 className={styles.formTitle}>{t.contact.formTitle}</h3>
             {sent ? (
               <div className={styles.successMsg}>
                 <span>
@@ -187,41 +179,41 @@ export default function Contact() {
                     />
                   </svg>
                 </span>
-                <p>Mensagem enviada! Responderei em breve.</p>
+                <p>{t.contact.successMessage}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="name">Nome</label>
+                  <label htmlFor="name">{t.contact.labelName}</label>
                   <input
                     id="name"
                     type="text"
                     name="name"
-                    placeholder="Seu nome completo"
+                    placeholder={t.contact.placeholderName}
                     value={formState.name}
                     onChange={handleChange}
                     required
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="email">E-mail</label>
+                  <label htmlFor="email">{t.contact.labelEmail}</label>
                   <input
                     id="email"
                     type="email"
                     name="email"
-                    placeholder="seu@email.com"
+                    placeholder={t.contact.placeholderEmail}
                     value={formState.email}
                     onChange={handleChange}
                     required
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="message">Mensagem</label>
+                  <label htmlFor="message">{t.contact.labelMessage}</label>
                   <textarea
                     id="message"
                     name="message"
                     rows={5}
-                    placeholder="Descreva seu projeto ou oportunidade..."
+                    placeholder={t.contact.placeholderMessage}
                     value={formState.message}
                     onChange={handleChange}
                     required
@@ -232,7 +224,7 @@ export default function Contact() {
                   className={`btn-primary ${styles.submitBtn}`}
                   disabled={sending}
                 >
-                  <span>{sending ? "Enviando..." : "Enviar mensagem"}</span>
+                  <span>{sending ? t.contact.sending : t.contact.send}</span>
                   {!sending && (
                     <svg
                       viewBox="0 0 24 24"

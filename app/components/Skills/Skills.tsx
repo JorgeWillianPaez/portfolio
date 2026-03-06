@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import styles from "./Skills.module.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 function CategoryIcon({ id }: { id: string }) {
   switch (id) {
@@ -63,12 +64,6 @@ function CategoryIcon({ id }: { id: string }) {
     default:
       return null;
   }
-}
-
-function getLevelLabel(level: number): string {
-  if (level >= 85) return "Avançado";
-  if (level >= 70) return "Intermediário";
-  return "Básico";
 }
 
 function getLevelDots(level: number): number {
@@ -155,6 +150,13 @@ const techBadges = [
 
 export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
+
+  function getLevelLabel(level: number): string {
+    if (level >= 85) return t.skills.levels.advanced;
+    if (level >= 70) return t.skills.levels.intermediate;
+    return t.skills.levels.basic;
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -182,14 +184,12 @@ export default function Skills() {
     >
       <div className="container">
         <div className={`${styles.header} reveal`}>
-          <span className="section-tag">Habilidades</span>
+          <span className="section-tag">{t.skills.tag}</span>
           <h2 className="section-title">
-            Meu <span className="highlight">Arsenal Técnico</span>
+            {t.skills.titleStart}{" "}
+            <span className="highlight">{t.skills.titleHighlight}</span>
           </h2>
-          <p className={styles.subtitle}>
-            Tecnologias e ferramentas que utilizo para construir soluções
-            completas
-          </p>
+          <p className={styles.subtitle}>{t.skills.subtitle}</p>
         </div>
 
         <div className={styles.grid}>
@@ -250,7 +250,7 @@ export default function Skills() {
         </div>
 
         <div className={`${styles.badgesSection} reveal`}>
-          <p className={styles.badgesTitle}>Tecnologias que já utilizei</p>
+          <p className={styles.badgesTitle}>{t.skills.badgesTitle}</p>
           <div className={styles.badges}>
             {techBadges.map((tech) => (
               <span key={tech} className={styles.badge}>

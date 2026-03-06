@@ -3,27 +3,23 @@
 import { useState, useEffect } from "react";
 import styles from "./Navbar.module.css";
 import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
+import LanguageSelector from "../LanguageSelector/LanguageSelector";
 
-const navLinks = [
-  { href: "#sobre", label: "Sobre" },
-  { href: "#habilidades", label: "Habilidades" },
-  { href: "#projetos", label: "Projetos" },
-  { href: "#formacao", label: "Formação" },
-  { href: "#contato", label: "Contato" },
-];
+const sectionIds = ["sobre", "habilidades", "projetos", "formacao", "contato"];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("");
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = navLinks.map((l) => l.href.replace("#", ""));
-      for (const id of sections.reverse()) {
+      for (const id of [...sectionIds].reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY + 100 >= el.offsetTop) {
           setActive(id);
@@ -42,6 +38,14 @@ export default function Navbar() {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const navLinks = [
+    { href: "#sobre", label: t.nav.about },
+    { href: "#habilidades", label: t.nav.skills },
+    { href: "#projetos", label: t.nav.projects },
+    { href: "#formacao", label: t.nav.education },
+    { href: "#contato", label: t.nav.contact },
+  ];
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
@@ -76,19 +80,20 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className={styles.ctaBtn}
             >
-              Contratar
+              {t.nav.hire}
             </a>
           </li>
         </ul>
 
         <div className={styles.rightControls}>
+          <LanguageSelector />
           <button
             className={styles.themeToggle}
             onClick={toggleTheme}
             aria-label={
-              theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"
+              theme === "dark" ? t.nav.activateLight : t.nav.activateDark
             }
-            title={theme === "dark" ? "Tema claro" : "Tema escuro"}
+            title={theme === "dark" ? t.nav.lightTheme : t.nav.darkTheme}
           >
             {theme === "dark" ? (
               // Sun icon
@@ -121,7 +126,7 @@ export default function Navbar() {
           <button
             className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ""}`}
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Abrir menu"
+            aria-label={t.nav.openMenu}
           >
             <span />
             <span />

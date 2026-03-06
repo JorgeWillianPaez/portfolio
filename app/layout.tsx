@@ -3,6 +3,7 @@ import { Poppins, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import ThemeProvider from "./context/ThemeContext";
+import LanguageProvider from "./context/LanguageContext";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
 
 const poppins = Poppins({
@@ -47,6 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
+      suppressHydrationWarning
       className={`${poppins.variable} ${jetbrainsMono.variable}`}
     >
       <head>
@@ -64,7 +66,9 @@ export default function RootLayout({
       </head>
       <body>
         <CustomCursor />
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
